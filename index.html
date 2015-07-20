@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Golden Gate 2</title>
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <link href="public/components/terrier/dist/terrier.css" rel="stylesheet">
+
+    <link href="public/components/animate.css/animate.min.css" rel="stylesheet">
+
+    <link href="public/css/main.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<nav class="bar">
+    <div class="container">
+        <header class="left">
+            <img src="public/img/logo.png" alt="GeeFu logo">
+            <span>Golden Gate 2</span>
+        </header>
+    </div>
+</nav>
+
+<div class="container mt2" id="bridge"></div>
+
+<script src="public/components/jquery/dist/jquery.min.js"></script>
+<script src="public/components/terrier/dist/terrier.js"></script>
+<script src="public/js/main.js"></script>
+
+<script src="public/components/react/react.min.js"></script>
+<script src="public/components/react/JSXTransformer.js"></script>
+
+<script type="text/jsx">
+
+    var animation = 'shake';
+
+    var initParts = [
+        {
+            id: 'A1',
+            size: 1,
+            label: 'DIST',
+            compatible: ['A2'],
+            childParts: []
+        },
+        {
+            id: 'A2',
+            size: 1,
+            label: 'PROX',
+            compatible: ['A1', 'A3'],
+            childParts: []
+        },
+        {
+            id: 'A3',
+            size: 1,
+            label: 'CORE',
+            compatible: ['A2', 'B1'],
+            childParts: []
+        },
+        {
+            id: 'B1',
+            size: 1,
+            label: '5UTR',
+            compatible: ['A3', 'B2'],
+            childParts: []
+        },
+        {
+            id: 'B2',
+            size: 1,
+            label: 'NTAG',
+            compatible: ['B1', 'B3'],
+            childParts: []
+        },
+        {
+            id: 'B3',
+            size: 1,
+            label: 'CDS1',
+            compatible: ['B2', 'B4'],
+            childParts: []
+        },
+        {
+            id: 'B4',
+            size: 1,
+            label: 'CDS2',
+            compatible: ['B3', 'B5'],
+            childParts: []
+        },
+        {
+            id: 'B5',
+            size: 1,
+            label: 'CTAG',
+            compatible: ['B4', 'B6'],
+            childParts: []
+        },
+        {
+            id: 'B6',
+            size: 1,
+            label: '3UTR',
+            compatible: ['B5', 'C1'],
+            childParts: []
+        },
+        {
+            id: 'C1',
+            size: 1,
+            label: 'TERM',
+            compatible: ['B6'],
+            childParts: []
+        }
+
+    ];
+
+    var otherParts = [
+        {
+            id: 'DISTPROX',
+            size: 2,
+            label: 'DIST + PROX',
+            compatible: [],
+            childParts: ['A1', 'A2']
+        },
+        {
+            id: 'PROXCORE',
+            size: 2,
+            label: 'PROX + CORE',
+            compatible: [],
+            childParts: ['A2', 'A3']
+        },
+        {
+            id: 'CORE5UTR',
+            size: 2,
+            label: 'CORE + 5UTR',
+            compatible: [],
+            childParts: ['A3', 'B1']
+        },
+        {
+            id: '5UTRNTAG',
+            size: 2,
+            label: '5UTR + NTAG',
+            compatible: [],
+            childParts: ['B1', 'B2']
+        },
+        {
+            id: 'NTAGCDS1',
+            size: 2,
+            label: 'NTAG + CDS1',
+            compatible: [],
+            childParts: ['B2', 'B3']
+        },
+        {
+            id: 'CDS1CDS2',
+            size: 2,
+            label: 'CDS1 + CDS2',
+            compatible: [],
+            childParts: ['B3', 'B4']
+        },
+        {
+            id: 'CDS2CTAG',
+            size: 2,
+            label: 'CDS2 + CTAG',
+            compatible: [],
+            childParts: ['B4', 'B5']
+        },
+        {
+            id: 'CTAG3UTR',
+            size: 2,
+            label: 'CTAG + 3UTR',
+            compatible: [],
+            childParts: ['B5', 'B6']
+        },
+        {
+            id: '3UTRTERM',
+            size: 2,
+            label: '3UTR + TERM',
+            compatible: [],
+            childParts: ['B6', 'C1']
+        }
+    ];
+
+    var allParts = initParts.concat(otherParts);
+
+
+    var Part = React.createClass({
+        render: function () {
+            return (
+                    <div className={'size'+this.props.partType.size} id={this.props.partType.id}
+                         key={this.props.partType.id}>
+                        <div className="part">
+                            <span>{this.props.partType.label}</span>
+                            <p onClick={this.props.mergeLeft.bind(this, this)}>left</p>
+                            <p onClick={this.props.mergeRight.bind(this, this)}>right</p>
+                        </div>
+                    </div>
+            )
+        }
+    });
+
+    var Bridge = React.createClass({
+
+        getInitialState: function () {
+            return {partsActive: initParts};
+        },
+        merge: function (part, n) {
+            var realPart = part.props.partType;
+            var realPartIndex = this.state.partsActive.indexOf(realPart);
+            if (n == -1) {
+                realPartIndex -= 1;
+            }
+            var sideIndex = this.state.partsActive.indexOf(realPart) + n;
+            if (sideIndex > -1 && sideIndex <= this.state.partsActive.length - 1) {
+                var sidePart = this.state.partsActive[sideIndex];
+
+                //TODO check if compatible
+
+                var compatiblePart = allParts.filter(function (ap) {
+
+                    var indexOfL = ap.childParts.indexOf(realPart.id);
+                    var indexOfR = ap.childParts.indexOf(sidePart.id);
+
+                    return indexOfL > -1 && indexOfR > -1;
+                });
+
+                if (compatiblePart.length) {
+                    var newPartsActive = this.state.partsActive.filter(function (pa) {
+                        return pa != sidePart && pa != realPart;
+                    });
+
+                    newPartsActive.splice(realPartIndex, 0, compatiblePart[0]);
+                    this.setState({partsActive: newPartsActive});
+                } else {
+                    var domEl = part.getDOMNode();
+                    animate(domEl, animation);
+                    console.error('no compatible part');
+                }
+
+
+            } else {
+                var nothingRightEL = part.getDOMNode();
+                animate(nothingRightEL, animation);
+                console.error('nothing to right');
+            }
+        },
+        mergeLeft: function (part) {
+            this.merge(part, -1);
+        },
+        mergeRight: function (part) {
+            this.merge(part, 1);
+        },
+        render: function () {
+            var self = this;
+            return (
+                    <div>
+                        {this.state.partsActive.map(function (part) {
+
+                            return (
+                                    <Part partType={part} mergeLeft={self.mergeLeft} mergeRight={self.mergeRight}/>
+                            )
+                        })}
+                    </div>
+            )
+        }
+    });
+    React.render(<Bridge/>, document.getElementById('bridge'));
+</script>
+</body>
