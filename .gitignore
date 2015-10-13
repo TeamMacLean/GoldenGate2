@@ -1,2 +1,4 @@
 public/components
 .idea
+node_modules
+data

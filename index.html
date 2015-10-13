@@ -9,11 +9,11 @@
 
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-    <link href="public/components/terrier/dist/terrier.css" rel="stylesheet">
+    <link href="/components/terrier/dist/terrier.css" rel="stylesheet">
 
-    <link href="public/components/animate.css/animate.min.css" rel="stylesheet">
+    <link href="/components/animate.css/animate.min.css" rel="stylesheet">
 
-    <link href="public/css/main.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -27,20 +27,20 @@
 <nav class="bar">
     <div class="container">
         <header class="left">
-            <img src="public/img/logo.png" alt="GeeFu logo">
-            <span>Golden Gate 2</span>
+            <img src="/img/logo.png" alt="GeeFu logo">
+            <span>GoldenGate</span>
         </header>
     </div>
 </nav>
 
 <div class="container mt2" id="bridge"></div>
 
-<script src="public/components/jquery/dist/jquery.min.js"></script>
-<script src="public/components/terrier/dist/terrier.js"></script>
-<script src="public/js/main.js"></script>
+<script src="/components/jquery/dist/jquery.min.js"></script>
+<script src="/components/terrier/dist/terrier.js"></script>
+<script src="/js/main.js"></script>
 
-<script src="public/components/react/react.min.js"></script>
-<script src="public/components/react/JSXTransformer.js"></script>
+<script src="/components/react/react.min.js"></script>
+<script src="/components/react/JSXTransformer.js"></script>
 
 <script type="text/jsx">
 
@@ -129,6 +129,62 @@
             childParts: ['A1', 'A2']
         },
         {
+            id: 'DISTPROXCORE',
+            size: 3,
+            label: 'DIST + PROX + CORE',
+            compatible: [],
+            childParts: ['DISTPROX', 'A3']
+        },
+        {
+            id: 'DISTPROXCORE5UTR',
+            size: 4,
+            label: 'DIST + PROX + CORE + 5UTR',
+            compatible: [],
+            childParts: ['DISTPROXCORE', 'B1']
+        },
+        {
+            id: 'DISTPROXCORE5UTRNTAG',
+            size: 5,
+            label: 'DIST + PROX + CORE + 5UTR + NTAG',
+            compatible: [],
+            childParts: ['DISTPROXCORE5UTR', 'B2']
+        },
+        {
+            id: 'DISTPROXCORE5UTRNTAGCDS1',
+            size: 6,
+            label: 'DIST + PROX + CORE + 5UTR + NTAG + CDS1',
+            compatible: [],
+            childParts: ['DISTPROXCORE5UTRNTAG', 'B3']
+        },
+        {
+            id: 'DISTPROXCORE5UTRNTAGCDS1CDS2',
+            size: 7,
+            label: 'DIST + PROX + CORE + 5UTR + NTAG + CDS1 + CDS2',
+            compatible: [],
+            childParts: ['DISTPROXCORE5UTRNTAGCDS1', 'B4']
+        },
+        {
+            id: 'DISTPROXCORE5UTRNTAGCDS1CDS2CTAG',
+            size: 8,
+            label: 'DIST + PROX + CORE + 5UTR + NTAG + CDS1 + CDS2 + CTAG',
+            compatible: [],
+            childParts: ['DISTPROXCORE5UTRNTAGCDS1CDS2', 'B5']
+        },
+        {
+            id: 'DISTPROXCORE5UTRNTAGCDS1CDS2CTAG3UTR',
+            size: 9,
+            label: 'DIST + PROX + CORE + 5UTR + NTAG + CDS1 + CDS2 + CTAG + 3UTR',
+            compatible: [],
+            childParts: ['DISTPROXCORE5UTRNTAGCDS1CDS2CTAG', 'B6']
+        },
+        {
+            id: 'DISTPROXCORE5UTRNTAGCDS1CDS2CTAG3UTRTERM',
+            size: 10,
+            label: 'DIST + PROX + CORE + 5UTR + NTAG + CDS1 + CDS2 + CTAG + 3UTR + TERM',
+            compatible: [],
+            childParts: ['DISTPROXCORE5UTRNTAGCDS1CDS2CTAG3UTR', 'C1']
+        },
+        {
             id: 'PROXCORE',
             size: 2,
             label: 'PROX + CORE',
@@ -183,21 +239,151 @@
             label: '3UTR + TERM',
             compatible: [],
             childParts: ['B6', 'C1']
+        },
+        {
+            id: 'DISTPROXCORE5URT',
+            size: 4,
+            label: 'DIST+PROX+CORE+5URT',
+            compatible: [],
+            childParts: ['DISTPROX', 'CORE5UTR']
+        },
+        {
+            id: 'NTAGCDS1CDS2CTAG',
+            size: 4,
+            label: 'NTAG+CDS1+CDS2+CTAG',
+            compatible: [],
+            childParts: ['NTAGCDS1', 'CDS2CTAG']
+        },
+        {
+            id: 'DISTPROXCORE5URTNTAGCDS1CDS2CTAG',
+            size: 8,
+            label: 'DIST+PROX+CORE+5URT+NTAG+CDS1+CDS2+CTAG',
+            compatible: [],
+            childParts: ['DISTPROXCORE5URT', 'NTAGCDS1CDS2CTAG']
+        },
+        {
+            id: 'DISTPROXCORE5URTNTAGCDS1CDS2CTAG3UTRTERM',
+            size: 10,
+            label: 'DIST+PROX+CORE+5URT+NTAG+CDS1+CDS2+CTAG+3UTR+TERM',
+            compatible: [],
+            childParts: ['DISTPROXCORE5URTNTAGCDS1CDS2CTAG', '3UTRTERM']
+        },
+        {
+            id: 'CTAG3UTRTERM',
+            size: 3,
+            label: 'CTAG + 3UTR + TERM',
+            compatible: [],
+            childParts: ['B5', '3UTRTERM']
+        },
+        {
+            id: 'CDS2CTAG3UTRTERM',
+            size: 4,
+            label: 'CDS2 + CTAG + 3UTR + TERM',
+            compatible: [],
+            childParts: ['B4', 'CTAG3UTRTERM']
+        },
+        {
+            id: 'CDS1CDS2CTAG3UTRTERM',
+            size: 5,
+            label: 'CDS1 + CDS2 + CTAG + 3UTR + TERM',
+            compatible: [],
+            childParts: ['B3', 'CDS2CTAG3UTRTERM']
+        },
+        {
+            id: 'NTAGCDS1CDS2CTAG3UTRTERM',
+            size: 6,
+            label: 'NTAG + CDS1 + CDS2 + CTAG + 3UTR + TERM',
+            compatible: [],
+            childParts: ['B2', 'CDS1CDS2CTAG3UTRTERM']
+        },
+        {
+            id: '5UTRNTAGCDS1CDS2CTAG3UTRTERM',
+            size: 7,
+            label: '5UTR + NTAG + CDS1 + CDS2 + CTAG + 3UTR + TERM',
+            compatible: [],
+            childParts: ['B1', 'NTAGCDS1CDS2CTAG3UTRTERM']
+        },
+        {
+            id: 'CORE5UTRNTAGCDS1CDS2CTAG3UTRTERM',
+            size: 8,
+            label: 'CORE + 5UTR + NTAG + CDS1 + CDS2 + CTAG + 3UTR + TERM',
+            compatible: [],
+            childParts: ['A3', '5UTRNTAGCDS1CDS2CTAG3UTRTERM']
+        },
+        {
+            id: 'PROXCORE5UTRNTAGCDS1CDS2CTAG3UTRTERM',
+            size: 9,
+            label: 'PROX + CORE + 5UTR + NTAG + CDS1 + CDS2 + CTAG + 3UTR + TERM',
+            compatible: [],
+            childParts: ['A2', 'CORE5UTRNTAGCDS1CDS2CTAG3UTRTERM']
+        },
+        {
+            id: 'DISTPROXCORE5UTRNTAGCDS1CDS2CTAG3UTRTERM',
+            size: 10,
+            label: 'DIS + PROX + CORE + 5UTR + NTAG + CDS1 + CDS2 + CTAG + 3UTR + TERM',
+            compatible: [],
+            childParts: ['A1', 'PROXCORE5UTRNTAGCDS1CDS2CTAG3UTRTERM']
         }
+
     ];
 
     var allParts = initParts.concat(otherParts);
 
 
     var Part = React.createClass({
+
+        canMerge: function (i, n) {
+            var self = this;
+
+            var compatible = allParts.filter(function (ap) {
+                var current = self.props.partsActive[i];
+                var next = self.props.partsActive[n];
+
+                var h1 = ap.childParts.indexOf(current.id);
+                var h2 = ap.childParts.indexOf(next.id);
+
+                return h1 > -1 && h2 > -1;
+            });
+            return !!compatible.length;
+
+        },
         render: function () {
+
+            var split = {};
+            var leftMerge = {};
+            var rightMerge = {};
+
+            if (this.props.partType.size > 1) {
+                split = <span className="split" onClick={this.props.split.bind(this,this)}>&times;</span>
+            }
+
+            if (this.props.index > 0 && this.canMerge(this.props.index, this.props.index - 1)) {
+                leftMerge = <span className="merge left" onClick={this.props.mergeLeft.bind(this, this)}>&#171;</span>;
+
+            }
+            if (this.props.index + 1 < this.props.maxLength && this.canMerge(this.props.index, this.props.index + 1)) {
+                rightMerge = <span className="merge right"
+                                   onClick={this.props.mergeRight.bind(this, this)}>&#187;</span>;
+            }
+
+
             return (
                     <div className={'size'+this.props.partType.size} id={this.props.partType.id}
                          key={this.props.partType.id}>
                         <div className="part">
-                            <span>{this.props.partType.label}</span>
-                            <p onClick={this.props.mergeLeft.bind(this, this)}>left</p>
-                            <p onClick={this.props.mergeRight.bind(this, this)}>right</p>
+                            <span className="partLabel">{this.props.partType.label}</span>
+                            <select>
+                                <option>a</option>
+                                <option>b</option>
+                                <option>c</option>
+                                <option>d</option>
+                            </select>
+                            <div className="options">
+                                {leftMerge}
+                                {split}
+                                {rightMerge}
+                            </div>
+                            <div className="clearfix"></div>
                         </div>
                     </div>
             )
@@ -218,8 +404,6 @@
             var sideIndex = this.state.partsActive.indexOf(realPart) + n;
             if (sideIndex > -1 && sideIndex <= this.state.partsActive.length - 1) {
                 var sidePart = this.state.partsActive[sideIndex];
-
-                //TODO check if compatible
 
                 var compatiblePart = allParts.filter(function (ap) {
 
@@ -255,14 +439,37 @@
         mergeRight: function (part) {
             this.merge(part, 1);
         },
+        split: function (s) {
+
+            var index = s.props.index;
+
+            var newPA = this.state.partsActive.slice();
+            newPA.splice(index, 1);
+
+            var count = -1;
+            s.props.partType.childParts.forEach(function (p) {
+                allParts.forEach(function (ap) {
+                    if (ap.id == p) {
+                        count++;
+                        newPA.splice(index + count, 0, ap);
+                    }
+                });
+            });
+
+            this.setState({partsActive: newPA});
+
+
+        },
         render: function () {
             var self = this;
             return (
                     <div>
-                        {this.state.partsActive.map(function (part) {
+                        {this.state.partsActive.map(function (part, i) {
 
                             return (
-                                    <Part partType={part} mergeLeft={self.mergeLeft} mergeRight={self.mergeRight}/>
+                                    <Part partType={part} mergeLeft={self.mergeLeft} mergeRight={self.mergeRight}
+                                          index={i} maxLength={self.state.partsActive.length}
+                                          partsActive={self.state.partsActive} split={self.split}/>
                             )
                         })}
                     </div>
