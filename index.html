@@ -9,11 +9,11 @@
 
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-    <link href="/components/terrier/dist/terrier.css" rel="stylesheet">
+    <link href="public/components/terrier/dist/terrier.css" rel="stylesheet">
 
-    <link href="/components/animate.css/animate.min.css" rel="stylesheet">
+    <link href="public/components/animate.css/animate.min.css" rel="stylesheet">
 
-    <link href="/css/main.css" rel="stylesheet">
+    <link href="public/css/main.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -27,20 +27,48 @@
 <nav class="bar">
     <div class="container">
         <header class="left">
-            <img src="/img/logo.png" alt="GeeFu logo">
+            <img src="public/img/logo.png" alt="GeeFu logo">
             <span>GoldenGate</span>
         </header>
     </div>
 </nav>
 
+
+<div class="container">
+    <fieldset>
+        <label for="gbFile">Custom Input Test</label>
+        <input type="file" id="gbFile" name="gbFile">
+        <select id="customFeatures" name="customFeatures"></select>
+    </fieldset>
+</div>
+
 <div class="container mt2" id="bridge"></div>
 
-<script src="/components/jquery/dist/jquery.min.js"></script>
-<script src="/components/terrier/dist/terrier.js"></script>
-<script src="/js/main.js"></script>
+<script src="public/components/jquery/dist/jquery.min.js"></script>
+<script src="public/components/terrier/dist/terrier.js"></script>
+<script src="public/js/genbank.js"></script>
+<!--<script src="public/components/genbankjs/genbank.js"></script>-->
+<script src="public/js/main.js"></script>
 
-<script src="/components/react/react.min.js"></script>
-<script src="/components/react/JSXTransformer.js"></script>
+<script src="public/data/parts.js"></script>
+<script src="public/data/vectors.js"></script>
+
+<script>
+    //just get golden gate features and their seq string
+    var partsFiltered = [];
+    parts.map(function (part) {
+        var filtered = part.features.filter(function (feature) {
+            return feature.key == 'Golden_Gate_Par';
+        });
+        filtered.map(function (fil) {
+            fil.sequence = part.sequence.substring(fil.location.start, fil.location.end);
+            partsFiltered.push(fil);
+        })
+    });
+</script>
+
+<script src="public/components/react/react.min.js"></script>
+<script src="public/components/react/JSXTransformer.js"></script>
 
 <script type="text/jsx">
 
