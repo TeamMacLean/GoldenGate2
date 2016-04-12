@@ -1,0 +1,3 @@
+[submodule "public/js/genbankjs"]
+	path = public/js/genbankjs
+	url = https://github.com/wookoouk/genbankjs.git

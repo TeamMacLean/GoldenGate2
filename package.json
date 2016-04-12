@@ -11,12 +11,9 @@
     "url": "git+https://github.com/wookoouk/GoldenGate2.git"
   },
   "author": "Martin Page",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/wookoouk/GoldenGate2/issues"
   },
   "homepage": "https://github.com/wookoouk/GoldenGate2#readme",
-  "devDependencies": {
-    "genbank": "0.0.1"
-  }
 }

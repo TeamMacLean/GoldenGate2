@@ -10,9 +10,7 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
     <link href="public/components/terrier/dist/terrier.css" rel="stylesheet">
-
     <link href="public/components/animate.css/animate.min.css" rel="stylesheet">
-
     <link href="public/css/main.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
@@ -33,21 +31,26 @@
     </div>
 </nav>
 
+<div class="container mt2" id="bridge"></div>
 
 <div class="container">
     <fieldset>
         <label for="gbFile">Custom Input Test</label>
         <input type="file" id="gbFile" name="gbFile">
         <select id="customFeatures" name="customFeatures"></select>
+        <input type="text" id="gbSeq" readonly>
     </fieldset>
 </div>
 
-<div class="container mt2" id="bridge"></div>
+
+<div class="page-loader">
+    <div class="loader">Loading...</div>
+</div>
+
 
 <script src="public/components/jquery/dist/jquery.min.js"></script>
 <script src="public/components/terrier/dist/terrier.js"></script>
-<script src="public/js/genbank.js"></script>
-<!--<script src="public/components/genbankjs/genbank.js"></script>-->
+<script src="public/js/genbankjs/genbank.js"></script>
 <script src="public/js/main.js"></script>
 
 <script src="public/data/parts.js"></script>
@@ -65,6 +68,7 @@
             partsFiltered.push(fil);
         })
     });
+    console.log(partsFiltered);
 </script>
 
 <script src="public/components/react/react.min.js"></script>
@@ -73,7 +77,6 @@
 <script type="text/jsx">
 
     var animation = 'shake';
-
     var initParts = [
         {
             id: 'A1',
@@ -502,6 +505,11 @@
                         })}
                     </div>
             )
+        },
+        componentDidMount: function () {
+            $(function () {
+                $('.page-loader').hide();
+            });
         }
     });
     React.render(<Bridge/>, document.getElementById('bridge'));

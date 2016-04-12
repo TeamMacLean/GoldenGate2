@@ -1,6 +1,6 @@
 var path = require('path');
 var fs = require('fs');
-var genbank = require('genbank');
+var genbank = require('./public/components/genbankjs/genbank.js');
 
 var dataPath = './data';
 var partsPath = path.join(dataPath, 'Parts');
@@ -13,6 +13,17 @@ var vectorsFilePath = path.join(outputPublicRoot, 'vectors.js');
 function run() {
   var partsFiles = getFiles(partsPath);
   var vectorFiles = getFiles(vectorsPath);
+
+
+  if (exists(partsFilePath)) {
+    console.log(partsFilePath, 'already exists');
+    process.exit();
+  }
+
+  if (exists(vectorsFilePath)) {
+    console.log(vectorsFilePath, 'already exists');
+    process.exit();
+  }
 
   var vectors = processFolder(vectorsPath, vectorFiles);
   var vectorsString = JSON.stringify(vectors, null, 2);
